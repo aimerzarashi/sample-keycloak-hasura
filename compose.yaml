@@ -61,6 +61,8 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgresql://bn_keycloak:password@db:5432/hasura
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_ADMIN_SECRET: password
-    #      HASURA_GRAPHQL_JWT_SECRET: '{"jwk_uri": "http://idp.localhost:8080/realms/demo/protocol/openid-connect/certs"}'
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_JWT_SECRET: '{"jwk_url":"http://idp.localhost:8080/realms/demo/protocol/openid-connect/certs"}'
     depends_on:
       - db

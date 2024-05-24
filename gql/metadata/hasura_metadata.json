@@ -1,0 +1,90 @@
+{
+  "resource_version": 11,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "default",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "name": "IndividualNumber",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "user",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "userId",
+                    "createdAt"
+                  ],
+                  "filter": {
+                    "userId": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  }
+                },
+                "comment": ""
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "database_url": {
+              "from_env": "HASURA_GRAPHQL_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "pool_settings": {
+              "connection_lifetime": 600,
+              "idle_timeout": 180,
+              "max_connections": 50,
+              "retries": 1
+            },
+            "use_prepared_statements": true
+          }
+        }
+      }
+    ],
+    "query_collections": [
+      {
+        "name": "allowed-queries",
+        "definition": {
+          "queries": [
+            {
+              "name": "IndividualNumber",
+              "query": "mutation insert_IndividualNumber_one($object: IndividualNumber_insert_input!) {\n  insert_IndividualNumber_one(object: $object) {\n    userId\n  }\n}"
+            }
+          ]
+        }
+      }
+    ],
+    "allowlist": [
+      {
+        "collection": "allowed-queries",
+        "scope": {
+          "global": true
+        }
+      }
+    ],
+    "rest_endpoints": [
+      {
+        "comment": "個人番号",
+        "definition": {
+          "query": {
+            "collection_name": "allowed-queries",
+            "query_name": "IndividualNumber"
+          }
+        },
+        "methods": [
+          "POST"
+        ],
+        "name": "IndividualNumber",
+        "url": "IndividualNumber"
+      }
+    ]
+  }
+}

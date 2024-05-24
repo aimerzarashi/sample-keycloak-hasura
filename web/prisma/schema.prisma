@@ -15,11 +15,6 @@ datasource db {
 
 model IndividualNumber {
   id           String     @id @default(dbgenerated("gen_random_uuid()"))
-  firstName    String
-  lastName     String
-  birthday     DateTime
-  gender       String
-  adderess     String
+  userId       String
   createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now())
 }
